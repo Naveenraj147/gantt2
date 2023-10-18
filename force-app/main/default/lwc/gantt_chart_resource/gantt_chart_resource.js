@@ -2,7 +2,7 @@ import { LightningElement, api, track } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 import getProjects from "@salesforce/apex/ganttChart.getProjects";
-import saveAllocation from "@salesforce/apex/ganttChart.saveAllocation";
+import saveAllocation from "@salesforce/apex/GanttChartNew.saveAllocation";
 import deleteAllocation from "@salesforce/apex/ganttChart.deleteAllocation";
 
 export default class GanttChartResource extends LightningElement {
@@ -14,6 +14,7 @@ export default class GanttChartResource extends LightningElement {
     return this._resource;
   }
   set resource(_resource) {
+    console.log('Resource',JSON.parse(JSON.stringify(_resource)));
     this._resource =JSON.parse(JSON.stringify(_resource));
     this.setProjects();
   }
