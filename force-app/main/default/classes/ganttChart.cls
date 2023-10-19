@@ -108,7 +108,7 @@ public with sharing class ganttChart {
                 Decimal right = Decimal.valueOf(startDate.daysBetween(allocation.End_Date__c)) / slotSize;
                 right = right.round(System.RoundingMode.FLOOR);
 
-                projectAllocation.add(new Map<String, Object> {
+               projectAllocation.add(new Map<String, Object> {
                     'Id' => allocation.Id,
                     'Start_Date__c' => allocation.Start_Date__c,
                     'End_Date__c' => allocation.End_Date__c,

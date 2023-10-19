@@ -2,6 +2,7 @@ import { LightningElement, api, track } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 import getProjects from "@salesforce/apex/ganttChart.getProjects";
+//import saveAllocation from "@salesforce/apex/ganttChart.saveAllocation";
 import saveAllocation from "@salesforce/apex/GanttChartNew.saveAllocation";
 import deleteAllocation from "@salesforce/apex/ganttChart.deleteAllocation";
 

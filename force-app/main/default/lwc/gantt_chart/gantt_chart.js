@@ -6,6 +6,7 @@ import momentJS from "@salesforce/resourceUrl/momentJS";
 import { loadScript } from "lightning/platformResourceLoader";
 
 import getChartData from "@salesforce/apex/GanttChartNew.getChartData";
+//import getChartData from "@salesforce/apex/ganttChart.getChartData";
 import getProjects from "@salesforce/apex/ganttChart.getProjects";
 import getResources from "@salesforce/apex/ganttChart.getResources";
 
