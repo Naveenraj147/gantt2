@@ -4,7 +4,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import getProjects from "@salesforce/apex/ganttChart.getProjects";
 //import saveAllocation from "@salesforce/apex/ganttChart.saveAllocation";
 import saveAllocation from "@salesforce/apex/GanttChartNew.saveAllocation";
-import deleteAllocation from "@salesforce/apex/ganttChart.deleteAllocation";
+import deleteAllocation from "@salesforce/apex/ganttChartNew.deleteAllocation";
 
 export default class GanttChartResource extends LightningElement {
   @api isResourceView; // resource page has different layout
@@ -248,8 +248,11 @@ export default class GanttChartResource extends LightningElement {
 
         project.allocations.push(allocation);
       });
-
-      self.projects.push(project);
+      console.log('length :: ',project.allocations.length);
+      if(project.allocations.length){
+        self.projects.push(project);
+      }
+      
     });
   }
 

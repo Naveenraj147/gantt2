@@ -56,6 +56,7 @@ export default class GanttChart extends LightningElement {
     projectRecordTypes: [], // Record Type Id for each option
     roles: [],
     status: "",
+    month:"",
     projectOptions: [],
     projectRecordTypeOptions: [], // To filter based on the record types 
     roleOptions: [],
@@ -66,12 +67,52 @@ export default class GanttChart extends LightningElement {
         value: ""
       },
       {
-        label: "Hold",
-        value: "Hold"
+        label: "January",
+        value: "1"
       },
       {
-        label: "Unavailable",
-        value: "Unavailable"
+        label: "February",
+        value: "2"
+      },
+      {
+        label: "March",
+        value: "3"
+      },
+      {
+        label: "April",
+        value: "4"
+      },
+      {
+        label: "May",
+        value: "5"
+      },
+      {
+        label: "June",
+        value: "6"
+      },
+      {
+        label: "July",
+        value: "7"
+      },
+      {
+        label: "Augest",
+        value: "8"
+      },
+      {
+        label: "September",
+        value: "9"
+      },
+      {
+        label: "October",
+        value: "10"
+      },
+      {
+        label: "November",
+        value: "11"
+      },
+      {
+        label: "December",
+        value: "12"
       }
     ]
   };
@@ -80,7 +121,8 @@ export default class GanttChart extends LightningElement {
     projectIds: [],
     projectRecordType: [], // to track record type Ids 
     roles: [],
-    status: ""
+    status: "",
+    month: ""
   };
   @track resourceModalData = {};
   /*** /Modals ***/
@@ -263,6 +305,7 @@ export default class GanttChart extends LightningElement {
   openAddResourceModal() {
 
     window.console.log('Resources = ' + JSON.stringify(getResources()));
+    console.log('get Resources = ' );
     getResources()
       .then(resources => {
         let excludeResources = this.resources;
@@ -453,11 +496,16 @@ export default class GanttChart extends LightningElement {
     this.filterModalData.status = event.currentTarget.value;
     this.setFilterModalDataDisable();
   }
+  setMonthFilter(event) {
+    this.filterModalData.month = event.currentTarget.value;
+    this.setFilterModalDataDisable();
+  }
 
   clearFilters() {
     this.filterModalData.projects = [];
     this.filterModalData.roles = [];
     this.filterModalData.status = "";
+    this.filterModalData.month = "";
     this.filterModalData.disabled = true;
   }
 
@@ -467,7 +515,8 @@ export default class GanttChart extends LightningElement {
     if (
       this.filterModalData.projects.length > 0 ||
       this.filterModalData.roles.length > 0 ||
-      this.filterModalData.status !== ""
+      this.filterModalData.status !== "" ||
+      this.filterModalData.month !== ""
     ) {
       this.filterModalData.disabled = false;
     }
@@ -486,7 +535,8 @@ export default class GanttChart extends LightningElement {
     this._filterData = {
       projects: Object.assign([], this.filterModalData.projects),
       roles: Object.assign([], this.filterModalData.roles),
-      status: this.filterModalData.status
+      status: this.filterModalData.status,
+      month:this.filterModalData.month
     };
 
     this._filterData.projectIds = this._filterData.projects.map(project => {
@@ -498,22 +548,22 @@ export default class GanttChart extends LightningElement {
     });
 */
     let filters = [];
-    if (this.filterModalData.projects.length) {
+   /* if (this.filterModalData.projects.length) {
       filters.push("Projects");
     }
-    /*
+    
     if (this.filterModalData.projectRecordType.length) {
       filters.push("projectRecordTypes");
     }
     */
     if (this.filterModalData.roles.length) {
-      filters.push("Roles");
+      filters.push("Voltage");
     }
     if (this.filterModalData.status) {
-      filters.push("Status");
+      filters.push("kW");
     }
-    if (this.filterModalData.status) {
-      filters.push("Status");
+    if (this.filterModalData.month) {
+      filters.push("Month");
     }
 
     if (filters.length) {
@@ -592,25 +642,32 @@ export default class GanttChart extends LightningElement {
         filterProjects: self._filterData.projectIds,
         filterProjectRecords: self._filterData.projectRecordTypes, // filter for record types
         filterRoles: self._filterData.roles,
-        filterStatus: self._filterData.status
+        filterStatus: self._filterData.status,
+        filterMonth: self._filterData.month
     }).then(data => {
+      console.log('Data :: ',data)
         self.isResourceView = typeof self.objectApiName !== 'undefined' && self.objectApiName.endsWith('Resource__c');
         self.isProjectView = typeof self.objectApiName !== 'undefined' && self.objectApiName.endsWith('Project__c');
         self.isRecordTypeView = typeof self.objectApiName !== 'undefined' && self.objectApiName.endsWith('Project__c');
         self.projectId = data.projectId;
+        
         self.projects = data.projects;
+       // console.log('self.projects length',JSON.parse(JSON.stringify(self.projects)));
         self.roles = data.roles;
 
         // empty old data
         // we want to keep resources we've already seen
         console.log('Execute');
+        console.log('resources :: ',JSON.parse(JSON.stringify(self.resources)));
         self.resources.forEach(function (resource, i) {
+
             self.resources[i] = {
                 Id: resource.Id,
                 Name: resource.Name,
                 Default_Role__c: resource.Default_Role__c,
                 allocationsByProject: {}
             };
+            console.log('Self Resource',JSON.parse(JSON.stringify(self.resources[i])) )
         });
 
         data.resources.forEach(function (newResource) {
@@ -620,7 +677,7 @@ export default class GanttChart extends LightningElement {
                     return;
                 }
             }
-
+            console.log('newResource',newResource);
             self.resources.push(newResource);
         });
 

@@ -24,8 +24,8 @@
             <div class="slds-grid slds-is-absolute lwc-timeslots-container">
                 <template for:each={times} for:item="time" for:index="index">
                     <div key={time} class={time.class} data-index={index} data-start={time.start} data-end={time.end}
-                        onclick={handleTimeslotClick} ondragenter={handleDragEnter}>
-                        <!-- nothing -->
+                        ondragenter={handleDragEnter}>
+                        <!-- nothing  onclick={handleTimeslotClick} -->
                     </div>
                 </template>
             </div>
@@ -51,10 +51,10 @@
                                         </div>
                                         <!-- /Allocation Left Handle -->
 
-                                        <div class="slds-col slds-grow-none lwc-allocation_actions">
+                                   <!--     <div class="slds-col slds-grow-none lwc-allocation_actions">
                                             <lightning-button-icon icon-name="utility:down" variant="bare-inverse" size="small"
                                                 onclick={openAllocationMenu} data-id={allocation.Id}></lightning-button-icon>
-                                        </div>
+                                        </div> -->
                                         <!-- Allocation Right Handle -->
                                         <div class="slds-col slds-grow-none lwc-allocation_handle handle_right" draggable="true"
                                             ondragstart={handleRightDragStart} data-id={allocation.Id}>
@@ -108,18 +108,18 @@
     </div>
 
     <!-- Add Allocation Modal -->
-    <c-gantt_chart_modal class="add-allocation-modal">
+<!--    <c-gantt_chart_modal class="add-allocation-modal">
         <span slot="title">Add Allocation</span>
-        <div slot="body" class="slds-form slds-form_stacked">
+        <div slot="body" class="slds-form slds-form_stacked"> -->
             <!-- Select Project -->
-            <lightning-combobox value={addAllocationData.projectId} label="What Project?" placeholder="-- Select Project --"
-                options={addAllocationData.projects} onchange={handleAddAllocationDataChange} data-field="projectId"></lightning-combobox>
+     <!--       <lightning-combobox value={addAllocationData.projectId} label="What Project?" placeholder="-- Select Project --"
+                options={addAllocationData.projects} onchange={handleAddAllocationDataChange} data-field="projectId"></lightning-combobox> -->
             <!-- /Select Project -->
-        </div>
+   <!--       </div>
 
         <lightning-button slot="footer" variant="brand" label="Add Allocation" onclick={addAllocationModalSuccess}
             class="slds-m-left_xx-small" disabled={addAllocationData.disabled}></lightning-button>
-    </c-gantt_chart_modal>
+    </c-gantt_chart_modal> -->
     <!-- /Add Allocation Modal -->
 
     <!-- Edit Modal -->
@@ -139,12 +139,12 @@
                 data-field="endDate"></lightning-input>
             <!-- /End Date -->
             <!-- Effort -->
-            <lightning-combobox if:true={editAllocationData.isFullEdit} value={editAllocationData.effort} label="Effort"
-                options={effortOptions} onchange={handleEditAllocationDataChange} data-field="effort"></lightning-combobox>
+          <!--    <lightning-combobox if:true={editAllocationData.isFullEdit} value={editAllocationData.effort} label="Effort"
+                options={effortOptions} onchange={handleEditAllocationDataChange} data-field="effort"></lightning-combobox> -->
             <!-- /Effort -->
             <!-- Status -->
-            <lightning-combobox if:true={editAllocationData.isFullEdit} value={editAllocationData.status} label="Status"
-                options={statusOptions} onchange={handleEditAllocationDataChange} data-field="status"></lightning-combobox>
+         <!--     <lightning-combobox if:true={editAllocationData.isFullEdit} value={editAllocationData.status} label="Status"
+                options={statusOptions} onchange={handleEditAllocationDataChange} data-field="status"></lightning-combobox> -->
             <!-- /Status -->
         </div>
 

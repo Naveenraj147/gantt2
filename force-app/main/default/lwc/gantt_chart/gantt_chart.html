@@ -254,7 +254,7 @@
       </div>
       End Mohit's Record Type Search -->
 
-      <div if:false={isProjectView} class="slds-form-element">
+    <!--  <div if:false={isProjectView} class="slds-form-element">
         <lightning-input
           type="search"
           label="Project"
@@ -305,7 +305,7 @@
             data-index={index}
           ></lightning-pill>
         </template>
-      </div>
+      </div> -->
 
       <div if:false={isResourceView} class="slds-form-element">
         <lightning-input
@@ -351,12 +351,19 @@
           ></lightning-pill>
         </template>
       </div>
-
-      <lightning-combobox
+      <lightning-input 
+        type="text"
         value={filterModalData.status}
-        label="Status"
-        options={filterModalData.statusOptions}
+        label="kW(max)"
         onchange={setStatusFilter}
+      ></lightning-input>
+
+      
+      <lightning-combobox
+        value={filterModalData.month}
+        label="Month(Pickup Date)"
+        options={filterModalData.statusOptions}
+        onchange={setMonthFilter}
       ></lightning-combobox>
     </div>
     <lightning-button
